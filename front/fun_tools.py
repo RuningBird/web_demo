@@ -49,9 +49,39 @@ def get_capacity_grow(name='David Williams'):
 
     return result
 
+
 # 统计某人工作船只信息
+def get_persion_word_ship_info(name='David Williams'):
+    sess = Session(bind=engine)
+
+    # 1 选出所有表
+    ship_list = []
+    sql = '''select s_id, vessel_name from z_all_ships_info'''
+    r = sess.execute(sql)
+    r1 = r.fetchall()
+
+    for elem in r1:
+        tb = elem[0]
+        ship_name = elem[1]
+
+        sql_inner = '''select name from {0} where name='David Williams' '''.format(tb)
+        try:
+            r_inner = sess.execute(sql_inner).fetchall()
+
+        except:
+            pass
+        if len(r_inner) > 0:
+            ship_list.append(ship_name)
+
+    # 2 在所有表中查找David Williams工作过的船只
+    context_dic = {
+        'name': 'David Williams',
+        'ships_info': ship_list
+    }
+    return context_dic
 
 
 if __name__ == '__main__':
     # get_capacity_distribution()
-    get_capacity_grow()
+    # get_capacity_grow()
+    get_persion_word_ship_info()

@@ -24,10 +24,35 @@ def capacity_grow(request):
     return render(request, 'html/grow_vertical.html', context=context)
 
 
+def persion_work_ship_info(request):
+    context = fun_tools.get_persion_word_ship_info()
+
+    return render(request, 'html/persion_word_ship_info.html')
+
+
+# 值请求类
 def json_capacity_distribution(request):
     r = fun_tools.get_capacity_distribution()
     context = {
         'capacity_distribution': r
     }
 
+    return JsonResponse(context)
+
+
+def json_persion_work_ship_info(request):
+    context = fun_tools.get_persion_word_ship_info()
+    context = {
+        'data': [
+            {
+                'children': [
+                    {
+                        'children': [],
+                        'name':'a'
+                    }
+                ],
+                'name': 'David Williams'
+            }
+        ]
+    }
     return JsonResponse(context)
