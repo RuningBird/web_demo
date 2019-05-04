@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>David Williams职位晋升路线</title>
+{% endblock %}
+
+{% block head_css_other %}
+    <link rel="stylesheet" type="text/css" href="/static/css/style_v.css" media="screen"/>
+{% endblock %}
+
+{% block head_js_other %}
+    <script src="/static/js/jquery.timelinr-0.9.7.js"></script>
+    <script>
+        $(function () {
+            $().timelinr({
+                orientation: 'vertical',
+                issuesSpeed: 300,
+                datesSpeed: 100,
+                arrowKeys: 'true',
+                startAt: 3
+            })
+        });
+    </script>
+{% endblock %}
+
+
+{% block content_body %}
+    <div id="timeline" style="width: 1920px;height: 1080px">
+
+
+        <ul id="dates">
+            {% for href_datum in href_data_times %}
+                <li><a href="#{{ href_datum }}">{{ href_datum }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul id="issues">
+
+            {% for k, v in href_data.items %}
+                <li id="{{ k }}">
+                    <img src="/static/images/5.png" width="256" height="256"/>
+                    <h1>{{ k }}</h1>
+                    <p style="font-size: 22px" align="center">职位：{{ v }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="grad_top"></div>
+        <div id="grad_bottom"></div>
+        <a href="#" id="next">+</a>
+        <a href="#" id="prev">-</a>
+    </div>
+{% endblock %}
