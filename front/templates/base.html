@@ -33,6 +33,7 @@
 
 <body>
 {% block content_body_items %}
+    <fieldset>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -55,13 +56,14 @@
 
                     <li>
                         <a href={% url 'capacity_distribution' %} target="_blank"
-                           onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v3doc'])">职位分布</a>
+                           onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v3doc'])">工作人员职位分布</a>
                     </li>
                 </ul>
 
             </div>
         </div>
     </div>
+    </fieldset>
 {% endblock %}
 
 

@@ -27,7 +27,7 @@ def capacity_grow(request):
 def persion_work_ship_info(request):
     context = fun_tools.get_persion_word_ship_info()
 
-    return render(request, 'html/persion_word_ship_info.html')
+    return render(request, 'html/persion_work_ship_list.html', context=context)
 
 
 # 值请求类

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content_body %}
+    <div>a</div>
+    <div>b</div>
+    <div>c</div>
+    <div class="tab-content table-bordered container align-left" role="grid">
+
+        <table>
+            <thead align="center">
+                <th style="color: mediumvioletred;font-size: x-large;align-content: center" >{{ name }}工作船只变动信息</th>
+            </thead>
+
+            <tbody>
+                <tr><td style="color: cornflowerblue;font-size: large">变动轨迹:</td></tr>
+
+
+                {% for si in ships_info %}
+                    <tr>
+                        <td style="border-left: #222222">{{ si }}</td>
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+{% endblock %}
