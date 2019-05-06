@@ -1,7 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm.session import Session
 
-engine = create_engine('mysql+pymysql://root:1122@192.168.101.27:3306/db_ships')
+engine = create_engine('mysql+pymysql://root:1122@10.93.53.244:3306/db_ships')  # company
+
+
+# engine = create_engine('mysql+pymysql://root:1122@192.168.101.27:3306/db_ships')
 
 
 # 计算职位比例
@@ -39,7 +42,7 @@ def get_capacity_grow(name='David Williams'):
     result = {}
     result_k_v = {}
     for elem in r1:
-        k_time = int(elem[0])
+        k_time = elem[0][:4]
         v_capacity = elem[1]
 
         result_k_v[str(k_time)] = v_capacity
@@ -51,7 +54,7 @@ def get_capacity_grow(name='David Williams'):
 
 
 # 统计某人工作船只信息
-def get_persion_word_ship_info(name='David Williams'):
+def get_persion_work_ship_info(name='David Williams'):
     sess = Session(bind=engine)
 
     # 1 选出所有表
@@ -64,12 +67,16 @@ def get_persion_word_ship_info(name='David Williams'):
         tb = elem[0]
         ship_name = elem[1]
 
-        sql_inner = '''select name from {0} where name='David Williams' '''.format(tb)
+        sql_inner = '''select {0}.name from {1} where name='David Williams' '''.format(tb, tb)
+        r_inner = None
         try:
             r_inner = sess.execute(sql_inner).fetchall()
 
-        except:
-            pass
+        except Exception as e:
+            print(sql_inner)
+            raise e
+
+        # print(r_inner)
         if len(r_inner) > 0:
             ship_list.append(ship_name)
 
@@ -81,7 +88,39 @@ def get_persion_word_ship_info(name='David Williams'):
     return context_dic
 
 
+def get_ships_person_number():
+    sess = Session(bind=engine)
+
+    # 1 选出所有表
+    ship_list = []
+    sql = '''select s_id, vessel_name from z_all_ships_info'''
+    r = sess.execute(sql)
+    r1 = r.fetchall()
+
+    tbs = {}
+    for elem in r1:
+        tb = elem[0]
+        ship_name = elem[1]
+
+        tbs[tb] = ship_name
+
+    # 初始化船只人员信息
+    ships_person_number = {}
+    for sn in tbs.values():
+        ships_person_number[sn] = 0
+
+    for tb, sn in tbs.items():
+        sql_inner = '''select count(*) from {0} where name='David Williams' '''.format(tb)
+        r_inner = sess.execute(sql_inner).fetchall()
+
+        c_number = ships_person_number[sn]
+        ships_person_number[sn] += len(r_inner)
+
+    pass
+
+
 if __name__ == '__main__':
     # get_capacity_distribution()
     # get_capacity_grow()
-    get_persion_word_ship_info()
+    # get_persion_work_ship_info()
+    get_ships_person_number()
