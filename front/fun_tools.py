@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm.session import Session
+import json
 
 engine = create_engine('mysql+pymysql://root:1122@10.93.53.244:3306/db_ships')  # company
 
@@ -116,7 +117,12 @@ def get_ships_person_number():
         c_number = ships_person_number[sn]
         ships_person_number[sn] += len(r_inner)
 
-    pass
+    result = {
+        'x_ship_name': json.dumps(list(ships_person_number.keys())),
+        'y_ship_persion_number': json.dumps(list(ships_person_number.values()))
+    }
+
+    return result
 
 
 if __name__ == '__main__':
