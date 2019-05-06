@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content_body %}
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+
+    <div align="center">
+        <h1>人员详细信息</h1>
+        <table>
+            <thead>
+
+            {% for segment in segments %}
+                <th style="border: 1px solid #ff1f3c" >{{ segment }}</th>
+            {% endfor %}
+
+            </thead>
+
+            <tbody>
+            {% for row_values in array_values %}
+                <tr>
+                    {% for col in row_values %}
+                        <td style="border: 2px solid #175dff">{{ col }}</td>
+                    {% endfor %}
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+<div>-----------end-------------------------</div>
+{% endblock %}

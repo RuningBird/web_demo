@@ -125,8 +125,32 @@ def get_ships_person_number():
     return result
 
 
+def get_person_details():
+    sess = Session(bind=engine)
+
+    # 1 选出所有表
+    ship_list = []
+    sql = '''select * from z_all_members_info'''
+    rs = sess.execute(sql).fetchall()
+
+    array_values = []
+    segments = ['姓名', '生日', '年龄', '出生地', '住址', '前船名', '前港口', '前船离时间', '船加入时间', '停靠港口', '职位', '船离开世界', '离开港口', '离开原因',
+                'UFO', '备注']
+    # segments = list(dict(rs[0]).keys())
+    for row in rs:
+        r_l = list(row)
+        array_values.append(r_l)
+
+    context = {
+        'segments': segments,
+        'array_values': array_values[:30]
+    }
+    return context
+
+
 if __name__ == '__main__':
     # get_capacity_distribution()
     # get_capacity_grow()
     # get_persion_work_ship_info()
-    get_ships_person_number()
+    # get_ships_person_number()
+    get_person_details()

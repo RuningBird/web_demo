@@ -29,7 +29,7 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                //data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
             },
             series: [
                 {
@@ -54,9 +54,9 @@
         myChart.setOption(option);
 
         $.get("{% url 'json_capacity_distribution' %}").done(function (mydata) {
-            console.log(mydata['capacity_distribution'])
+            console.log(mydata['distribution_capacity'])
 
-            fillData = mydata['capacity_distribution']
+            fillData = mydata['distribution_capacity']
             // 填入数据
 
             myChart.setOption({

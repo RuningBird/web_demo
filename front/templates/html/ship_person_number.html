@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+{% block content_body %}
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+
+
+    <div id="bar_ship_person_number" style="width: 100%;height:720px;" align="center"></div>
+    <script>
+
+        var myChart = echarts.init(document.getElementById('bar_ship_person_number'))
+
+        option = {
+            title: {
+                text: '船只人员数量信息',
+                x:'center',
+                y:'top',
+            },
+            color: ['#3398DB', '#3398DA'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            grid: {
+                x:'50%',
+                left: '3%',
+                right: '3%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: {{ x_ship_name|safe }},
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 45,//
+                        margin: 2,
+                        textStyle: {
+                            fontWeight: "bolder",
+                            color: "#000000"
+                        }
+                    },
+
+                }
+            ],
+
+
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series:
+                [
+                    {
+
+                        name: '船只人数',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: {{ y_ship_persion_number|safe }},
+                        itemStyle: {
+                            normal: {
+                                //color: 'tomato',
+                                //barBorderColor: 'tomato',
+                                barBorderWidth: 6,
+                                barBorderRadius: 0,
+                                label: {
+                                    show: true,
+                                    position: "top",
+                                    formatter: '{c}个'
+                                }
+                            }
+                        }
+                    }
+                ]
+        }
+        ;
+        myChart.setOption(option, true);
+        /*
+
+        $.get("http://10.90.106.164:9001/report/bar/group_failed/",
+            function (data) {
+                option.series[0].data = data['y_values'];
+                option.xAxis[0].data = data['x_names'];
+            });
+        myChart.setOption(option, true);
+
+         */
+
+    </script>
+
+{% endblock %}
