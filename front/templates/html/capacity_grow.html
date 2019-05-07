@@ -18,7 +18,7 @@
         // 指定图表的配置项和数据
         option = {
             title: {
-                text: '职位分布',
+                text: 'Position Distribution',
                 subtext: '纯属虚构',
                 x: 'center'
             },
@@ -29,11 +29,11 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                data: []
             },
             series: [
                 {
-                    name: '访问来源',
+                    name: 'Positions',
                     type: 'pie',
                     radius: '35%',
                     center: ['50%', '60%'],
@@ -63,7 +63,7 @@
 
                 series: [{
                     // 根据名字对应到相应的系列
-                    name: '人员分布',
+                    name: 'Distribution',
                     data: fillData
                 }]
             });

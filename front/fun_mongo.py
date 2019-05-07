@@ -53,8 +53,10 @@ def get_person_details():
     my_client.close()
 
     array_values = []
-    segments = ['姓名', '生日', '年龄', '出生地', '住址', '前船名', '前港口', '前船离时间', '船加入时间', '停靠港口', '职位', '船离开世界', '离开港口', '离开原因',
-                'UFO', '备注']
+    # segments = ['姓名', '生日', '年龄', '出生地', '住址', '前船名', '前港口', '前船离时间', '船加入时间', '停靠港口', '职位', '船离开世界', '离开港口', '离开原因',
+    #             'UFO', '备注']
+    segments = ['Name', 'Birth', 'Age', 'PoB', 'Address', 'LSN', 'LSP', 'LSLD', 'TSJD', 'TSJP', 'TSC', 'TSLD', 'TSLP', 'TSLC',
+                'SWM', 'NOTES']
     # segments = list(dict(rs[0]).keys())
     for row in rs:
         r_l = list(row.values())[1:]
