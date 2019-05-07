@@ -9,7 +9,7 @@ def get_capacity_distribution():
 
 # 4 获取每个船只上人员数量
 def get_ships_person_number():
-    my_client = pymongo.MongoClient('mongodb://root:123@10.93.53.187:27017/')
+    my_client = pymongo.MongoClient('mongodb://root:123@localhost:27017/')
     my_db = my_client['db_ships']
     my_collection = my_db['z_all_ships_info']
     rs = list(my_collection.find({}, {'s_id': 1, 'vessel_name': 1}))
@@ -46,7 +46,7 @@ def get_ships_person_number():
 
 # 5 详细信息
 def get_person_details():
-    my_client = pymongo.MongoClient('mongodb://root:123@10.93.53.187:27017/')
+    my_client = pymongo.MongoClient('mongodb://root:123@localhost:27017/')
     my_db = my_client['db_ships']
     my_collection = my_db['z_all_members_info']
     rs = list(my_collection.find())
