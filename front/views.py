@@ -32,7 +32,7 @@ def person_work_ship_info(request):
 
 
 def distribution_ship_person_number(request):
-    context = fun_tools.get_ships_person_number()
+    context = fun_mongo.get_ships_person_number()
     return render(request, 'html/ship_person_number.html', context)
 
 

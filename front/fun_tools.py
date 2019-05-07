@@ -111,7 +111,7 @@ def get_ships_person_number():
         ships_person_number[sn] = 0
 
     for tb, sn in tbs.items():
-        sql_inner = '''select count(*) from {0} where name='David Williams' '''.format(tb)
+        sql_inner = '''select count(*) from {0} '''.format(tb)
         try:
             r_inner = sess.execute(sql_inner).fetchall()
 
