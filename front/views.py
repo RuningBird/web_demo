@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http.response import JsonResponse
-from front import fun_tools
+from front import fun_tools, fun_mongo
 import json
 
 
@@ -42,7 +42,8 @@ def person_details(request):
         'array_values': [[1, 2], [3, 4]]
     }
 
-    context = fun_tools.get_person_details()
+    # context = fun_tools.get_person_details()
+    context = fun_mongo.get_person_details()  # 替换为mongodb
     return render(request, 'html/persion_details.html', context)
 
 

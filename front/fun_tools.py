@@ -2,13 +2,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm.session import Session
 import json
 
-# engine = create_engine('mysql+pymysql://root:1122@10.93.53.244:3306/db_ships')  # company
+engine = create_engine('mysql+pymysql://root:1122@10.93.53.244:3306/db_ships')  # company
 
 
-engine = create_engine('mysql+pymysql://root:1122@192.168.101.27:3306/db_ships')
+# engine = create_engine('mysql+pymysql://root:1122@192.168.101.27:3306/db_ships')
 
 
-# 计算职位比例
+# 1 计算职位比例
 def get_capacity_distribution():
     sess = Session(bind=engine)
     sql = 'select count(*), this_ship_capacity from z_all_members_info group by this_ship_capacity'
@@ -33,7 +33,7 @@ def get_capacity_distribution():
     return result
 
 
-# 统计某人职位晋升信息
+# 2 统计某人职位晋升信息
 def get_capacity_grow(name='David Williams'):
     sess = Session(bind=engine)
     sql = '''select last_ship_leaving_date, this_ship_capacity from z_all_members_info where name = 'David Williams' and last_ship_leaving_date > 1000 order by last_ship_leaving_date asc '''
@@ -54,7 +54,7 @@ def get_capacity_grow(name='David Williams'):
     return result
 
 
-# 统计某人工作船只信息
+# 3 统计某人工作船只信息
 def get_persion_work_ship_info(name='David Williams'):
     sess = Session(bind=engine)
 
@@ -72,14 +72,13 @@ def get_persion_work_ship_info(name='David Williams'):
         r_inner = None
         try:
             r_inner = sess.execute(sql_inner).fetchall()
+            # print(r_inner)
+            if len(r_inner) > 0:
+                ship_list.append(ship_name)
 
         except Exception as e:
             print(sql_inner)
-            raise e
-
-        # print(r_inner)
-        if len(r_inner) > 0:
-            ship_list.append(ship_name)
+            # raise e
 
     # 2 在所有表中查找David Williams工作过的船只
     context_dic = {
@@ -89,6 +88,7 @@ def get_persion_work_ship_info(name='David Williams'):
     return context_dic
 
 
+# 4 获取每个船只上人员数量
 def get_ships_person_number():
     sess = Session(bind=engine)
 
@@ -112,10 +112,13 @@ def get_ships_person_number():
 
     for tb, sn in tbs.items():
         sql_inner = '''select count(*) from {0} where name='David Williams' '''.format(tb)
-        r_inner = sess.execute(sql_inner).fetchall()
+        try:
+            r_inner = sess.execute(sql_inner).fetchall()
 
-        c_number = ships_person_number[sn]
-        ships_person_number[sn] += len(r_inner)
+            c_number = ships_person_number[sn]
+            ships_person_number[sn] += len(r_inner)
+        except Exception as e:
+            print(e)
 
     result = {
         'x_ship_name': json.dumps(list(ships_person_number.keys())),
@@ -125,6 +128,7 @@ def get_ships_person_number():
     return result
 
 
+# 5 详细信息
 def get_person_details():
     sess = Session(bind=engine)
 
