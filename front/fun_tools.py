@@ -5,7 +5,8 @@ import json
 # engine = create_engine('mysql+pymysql://root:1122@10.93.53.244:3306/db_ships')  # company
 
 
-engine = create_engine('mysql+pymysql://root:1122@192.168.101.27:3306/db_ships')
+engine = create_engine('mysql+pymysql://root:1122@61.150.85.75:3306/db_ships')  # test
+# engine = create_engine('mysql+pymysql://root:1122@192.168.101.27:3306/db_ships')
 
 
 # 1 计算职位比例
